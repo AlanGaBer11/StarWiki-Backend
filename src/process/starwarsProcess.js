@@ -5,6 +5,12 @@ const getPersonajes = async () => {
     return personajes;
 };
 
+const getOnePersonaje = async (id) => {
+    const personaje = await starwarsService.getOnePersonaje(id);
+    return personaje;
+};
+
 module.exports = {
-    getPersonajes
+    getPersonajes,
+    getOnePersonaje
 };

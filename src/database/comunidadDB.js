@@ -11,13 +11,13 @@ const connection = mysql.createConnection({
 connection.connect(error => {
     if (error)
         throw error;
-    console.log('La conexión con la tabla categoría es exitosa');
+    console.log('La conexión con la tabla comunidad es exitosa');
 });
 
 /* GETALL */
-const getAllCategororias = async () => {
+const getAllComunidades = async () => {
     return new Promise(function (resolve, reject) {
-        const sql = 'SELECT * FROM categorias';
+        const sql = 'SELECT * FROM comunidad';
         connection.query(sql, (error, results) => {
             if (error) {
                 return reject(error);
@@ -28,9 +28,9 @@ const getAllCategororias = async () => {
 };
 
 /* GETONE */
-const getOneCategoria = async (id) => {
+const getOneComunidad = async (id) => {
     return new Promise(function (resolve, reject) {
-        const sql = 'SELECT * FROM categorias WHERE id = ?';
+        const sql = 'SELECT * FROM comunidad WHERE id = ?';
         connection.query(sql, [id], (error, results) => {
             if (error) {
                 return reject(error);
@@ -41,48 +41,48 @@ const getOneCategoria = async (id) => {
 };
 
 /* POST */
-const createNewCategoria = async (categoria) => {
+const createNewComunidad = async (tema, contenido, imagen, fecha, nombre_usuario, categori) => {
     return new Promise(function (resolve, reject) {
-        const sql = "INSERT INTO categorias (categoria) VALUES (?)";
-        connection.query(sql, [categoria], (error, results) => {
+        const sql = "INSERT INTO comunidad(tema, contenido, imagen, fecha, nombre_usuario, categoria) VALUES(?, ?, ?, ?, ?, ?)";
+        connection.query(sql, [tema, contenido, imagen, fecha, nombre_usuario, categoria], (error, results) => {
             if (error) {
                 return reject(error);
             }
-            resolve('Categoría Creada Con Éxito');
+            resolve("Comunidad Creada con Éxito")
         });
     });
 };
 
 /* PATCH */
-const updateNewCategoria = async (id, categoria) => {
+const updateOneComunidad = async (tema, contenido, imagen, fecha, nombre_usuario, categoria, id) => {
     return new Promise(function (resolve, reject) {
-        const sql = "UPDATE categorias SET categoria = ? WHERE id = ? ";
-        connection.query(sql, [categoria, id], (error, results) => {
+        const sql = "UPDATE comunidad SET tema = ?, contenido = ?, imagen = ?, fecha = ?, nombre_usuario = ?, categoria = ? WHERE id = ?";
+        connection.query(sql, [tema, contenido, imagen, fecha, nombre_usuario, categoria, id], (error) => {
             if (error) {
                 return reject(error);
             }
-            resolve('Categoría Actualizada Correctamente');
+            resolve("Comunidad Actualizada con Éxito");
         });
     });
 };
 
 /* DELETE */
-const deleteOneCategoria = async (id) => {
+const deleteOneComunidad = async (id) => {
     return new Promise(function (resolve, reject) {
-        const sql = "DELETE FROM categorias WHERE id = ?";
+        const sql = "DELETE FROM comunidad WHERE id = ?";
         connection.query(sql, [id], (error, results) => {
             if (error) {
                 return reject(error);
             }
-            resolve('Categoría Eliminada Correctamente')
-        })
-    })
-}
+            resolve("Comunidad Eliminada con Éxito");
+        });
+    });
+};
 
 module.exports = {
-    getAllCategororias,
-    getOneCategoria,
-    createNewCategoria,
-    updateNewCategoria,
-    deleteOneCategoria
+    getAllComunidades,
+    getOneComunidad,
+    createNewComunidad,
+    updateOneComunidad,
+    deleteOneComunidad
 };

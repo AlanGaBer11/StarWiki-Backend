@@ -5,6 +5,12 @@ const getPersonajes = async (req, res) => {
     res.send(personajes);
 };
 
+const getOnePersonaje = async (req, res) => {
+    const personaje = await starwarsProcess.getOnePersonaje(req.params.id);
+    res.send(personaje);
+};
+
 module.exports = {
-    getPersonajes
+    getPersonajes,
+    getOnePersonaje
 };
