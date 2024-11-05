@@ -41,7 +41,7 @@ const getOneComunidad = async (id) => {
 };
 
 /* POST */
-const createNewComunidad = async (tema, contenido, imagen, fecha, nombre_usuario, categori) => {
+const createNewComunidad = async (tema, contenido, imagen, fecha, nombre_usuario, categoria) => {
     return new Promise(function (resolve, reject) {
         const sql = "INSERT INTO comunidad(tema, contenido, imagen, fecha, nombre_usuario, categoria) VALUES(?, ?, ?, ?, ?, ?)";
         connection.query(sql, [tema, contenido, imagen, fecha, nombre_usuario, categoria], (error, results) => {
