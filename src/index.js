@@ -10,12 +10,13 @@ const PORT = process.env.PORT || 3030;
 // Configuración de la base de datos con un pool de conexiones
 const pool = mysql.createPool({
     host: process.env.HOST_DB,
+    port: process.env.PORT_DB,
     user: process.env.USER_DB,
     password: process.env.PASSWORD_DB ,
     database: process.env.NAME_DB,
-    waitForConnections: true,
+/*     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0 */
 });
 
 // Importar rutas
