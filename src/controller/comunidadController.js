@@ -21,11 +21,13 @@ const getAllComunidades = async (req, res) => {
 const getOneComunidad = async (req, res) => {
   try {
     const comunidad = await comunidadProcess.getOneComunidad(req.params.id);
-    if (comunidad) convertImageToBase64(comunidad);
+    if (comunidad) {
+      convertImageToBase64(comunidad);
+    }
     res.status(200).json(comunidad);
   } catch (error) {
-    console.error('Error al obtener la comunidad:', error);
-    res.status(500).json({ error: 'Error al obtener la comunidad' });
+    console.error('Error al obtener la comunidad:', error.message); // Mostrar mensaje de error específico
+    res.status(500).json({ error: `Error al obtener la comunidad: ${error.message}` });
   }
 };
 
