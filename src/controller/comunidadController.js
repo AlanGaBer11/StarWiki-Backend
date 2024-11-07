@@ -3,60 +3,84 @@ const comunidadProcess = require("../process/comunidadProcess");
 const getAllComunidades = async (req, res) => {
   try {
     const comunidades = await comunidadProcess.getAllComunidades();
-    res.send(comunidades);
+    // Convertimos la imagen a Base64 si existe
+    const comunidadesBase64Imagen = comunidades.map(comunidad => {
+      if (comunidad.imagen) {
+        comunidad.imagen = Buffer.from(comunidad.imagen).toString('base64');
+      }
+      return comunidad;
+    });
+    res.status(200).json(comunidadesBase64Imagen);
   } catch (error) {
-    res.status(500).send({ error: "Error al obtener las comunidades" });
+    console.error('Error al obtener las comunidades', error);
+    res.status(502).json({ error: 'Error al obtener las comunidades' });
   }
 };
 
 const getOneComunidad = async (req, res) => {
   try {
     const comunidad = await comunidadProcess.getOneComunidad(req.params.id);
-    res.send(comunidad);
+    // Convertimos la imagen a Base64 si existe
+    if (comunidad && comunidad.imagen) {
+      comunidad.imagen = Buffer.from(comunidad.imagen).toString('base64');
+    }
+    res.status(200).json(comunidad);
   } catch (error) {
-    res.status(500).send({ error: "Error al obtener la comunidad" });
+    console.error('Error al obtener la comunidad', error);
+    res.status(500).json({ error: "Error al obtener la comunidad" });
   }
 };
 
 const createNewComunidad = async (req, res) => {
   try {
+    const { tema, contenido, fecha, nombre_usuario, categoria } = req.body;
+    let imagenBuffer = null;
+    if (req.file) {
+      imagenBuffer = req.file.buffer;
+    }
     const comunidad = await comunidadProcess.createNewComunidad(
-      req.body.tema,
-      req.body.contenido,
-      req.body.imagen,
-      req.body.fecha,
-      req.body.nombre_usuario,
-      req.body.categoria
+      tema,
+      contenido,
+      imagenBuffer,
+      fecha,
+      nombre_usuario,
+      categoria
     );
-    res.send(comunidad);
+    res.status(200).json(comunidad);
   } catch (error) {
-    res.status(500).send({ error: "Error al crear la comunidad" });
+    console.error('Error al crear una nueva comunidad', error);
+    res.status(502).json({ error: 'Error al crear una nueva comunidad' });
   }
 };
 
 const updateOneComunidad = async (req, res) => {
   try {
+    const { tema, contenido, fecha, nombre_usuario, categoria } = req.body;
+    let imagenBuffer = req.body.imagen ? Buffer.from(req.body.imagen, 'base64') : null;
+    
     const comunidad = await comunidadProcess.updateOneComunidad(
-      req.body.tema,
-      req.body.contenido,
-      req.body.imagen,
-      req.body.fecha,
-      req.body.nombre_usuario,
-      req.body.categoria,
+      tema,
+      contenido,
+      imagenBuffer,
+      fecha,
+      nombre_usuario,
+      categoria,
       req.params.id
     );
-    res.send(comunidad);
+    res.status(200).json(comunidad);
   } catch (error) {
-    res.status(500).send({ error: "Error al actualizar la comunidad" });
+    console.error('Error al actualizar la comunidad', error);
+    res.status(500).json({ error: "Error al actualizar la comunidad" });
   }
 };
 
 const deleteOneComunidad = async (req, res) => {
   try {
     const comunidad = await comunidadProcess.deleteOneComunidad(req.params.id);
-    res.send(comunidad);
+    res.status(200).json(comunidad);
   } catch (error) {
-    res.status(500).send({ error: "Error al eliminar la comunidad" });
+    console.error('Error al eliminar la comunidad', error);
+    res.status(500).json({ error: "Error al eliminar la comunidad" });
   }
 };
 
