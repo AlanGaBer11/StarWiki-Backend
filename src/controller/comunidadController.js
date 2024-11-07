@@ -1,33 +1,31 @@
 const comunidadProcess = require("../process/comunidadProcess");
 
+const convertImageToBase64 = (comunidad) => {
+  if (comunidad.imagen) {
+    comunidad.imagen = Buffer.from(comunidad.imagen).toString('base64');
+  }
+  return comunidad;
+};
+
 const getAllComunidades = async (req, res) => {
   try {
     const comunidades = await comunidadProcess.getAllComunidades();
-    // Convertimos la imagen a Base64 si existe
-    const comunidadesBase64Imagen = comunidades.map(comunidad => {
-      if (comunidad.imagen) {
-        comunidad.imagen = Buffer.from(comunidad.imagen).toString('base64');
-      }
-      return comunidad;
-    });
-    res.status(200).json(comunidadesBase64Imagen);
+    const comunidadesConImagenes = comunidades.map(convertImageToBase64);
+    res.status(200).json(comunidadesConImagenes);
   } catch (error) {
-    console.error('Error al obtener las comunidades', error);
-    res.status(502).json({ error: 'Error al obtener las comunidades' });
+    console.error('Error al obtener las comunidades:', error);
+    res.status(500).json({ error: 'Error al obtener las comunidades' });
   }
 };
 
 const getOneComunidad = async (req, res) => {
   try {
     const comunidad = await comunidadProcess.getOneComunidad(req.params.id);
-    // Convertimos la imagen a Base64 si existe
-    if (comunidad && comunidad.imagen) {
-      comunidad.imagen = Buffer.from(comunidad.imagen).toString('base64');
-    }
+    if (comunidad) convertImageToBase64(comunidad);
     res.status(200).json(comunidad);
   } catch (error) {
-    console.error('Error al obtener la comunidad', error);
-    res.status(500).json({ error: "Error al obtener la comunidad" });
+    console.error('Error al obtener la comunidad:', error);
+    res.status(500).json({ error: 'Error al obtener la comunidad' });
   }
 };
 
