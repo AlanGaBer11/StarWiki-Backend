@@ -10,13 +10,13 @@ const getOneComunidad = async (id) => {
     return comunidades;
 };
 
-const createNewComunidad = async (tema, contenido, imagen, fecha, nombre_usuario, categoria) => {
-    const comunidades = await comunidadService.createNewComunidad(tema, contenido, imagen, fecha, nombre_usuario, categoria);
+const createNewComunidad = async (tema, contenido, fecha, nombre_usuario, categoria) => {
+    const comunidades = await comunidadService.createNewComunidad(tema, contenido, fecha, nombre_usuario, categoria);
     return comunidades;
 };
 
-const updateOneComunidad = async(titulo, contenido, imagenes, fecha, nombre_usuario, categoria, id) => {
-    const comunidades = await comunidadService.updateOneComunidad(titulo, contenido, imagenes, fecha, nombre_usuario, categoria, id);
+const updateOneComunidad = async(tema, contenido, fecha, nombre_usuario, categoria, id) => {
+    const comunidades = await comunidadService.updateOneComunidad(tema, contenido, fecha, nombre_usuario, categoria, id);
     return comunidades;
 };
 

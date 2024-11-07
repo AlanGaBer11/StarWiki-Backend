@@ -41,10 +41,10 @@ const getOneComunidad = async (id) => {
 };
 
 /* POST */
-const createNewComunidad = async (tema, contenido, imagen, fecha, nombre_usuario, categoria) => {
+const createNewComunidad = async (tema, contenido, fecha, nombre_usuario, categoria) => {
     return new Promise(function (resolve, reject) {
-        const sql = "INSERT INTO comunidad(tema, contenido, imagen, fecha, nombre_usuario, categoria) VALUES(?, ?, ?, ?, ?, ?)";
-        connection.query(sql, [tema, contenido, imagen, fecha, nombre_usuario, categoria], (error, results) => {
+        const sql = "INSERT INTO comunidad(tema, contenido, fecha, nombre_usuario, categoria) VALUES(?, ?, ?, ?, ?)";
+        connection.query(sql, [tema, contenido, fecha, nombre_usuario, categoria], (error, results) => {
             if (error) {
                 return reject(error);
             }
@@ -54,10 +54,10 @@ const createNewComunidad = async (tema, contenido, imagen, fecha, nombre_usuario
 };
 
 /* PATCH */
-const updateOneComunidad = async (tema, contenido, imagen, fecha, nombre_usuario, categoria, id) => {
+const updateOneComunidad = async (tema, contenido, fecha, nombre_usuario, categoria, id) => {
     return new Promise(function (resolve, reject) {
-        const sql = "UPDATE comunidad SET tema = ?, contenido = ?, imagen = ?, fecha = ?, nombre_usuario = ?, categoria = ? WHERE id = ?";
-        connection.query(sql, [tema, contenido, imagen, fecha, nombre_usuario, categoria, id], (error) => {
+        const sql = "UPDATE comunidad SET tema = ?, contenido = ?, fecha = ?, nombre_usuario = ?, categoria = ? WHERE id = ?";
+        connection.query(sql, [tema, contenido, fecha, nombre_usuario, categoria, id], (error) => {
             if (error) {
                 return reject(error);
             }

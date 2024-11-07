@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 
 // Ruta de bienvenida
 app.get('/', (req, res) => {
-    res.send("Bienvenido a StaWiki");
+    res.send("Bienvenido a StarWiki");
 });
 
 // Endpoint para verificar la conexión a la base de datos
