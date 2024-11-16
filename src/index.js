@@ -20,7 +20,6 @@ const pool = mysql.createPool({
 });
 
 // Importar rutas
-const v1Categoria = require('./v1/routes/categoriaRoutes');
 const v1Comunidad = require('./v1/routes/comunidadRoutes');
 const v1Starwars = require('./v1/routes/starwarsRoutes');
 const v1Dragonball = require('./v1/routes/dragonballRoutes');
@@ -49,7 +48,6 @@ app.get('/ping', async (req, res) => {
 });
 
 // Agregar las rutas de la API
-app.use("/api/v1/categoria", v1Categoria);
 app.use("/api/v1/comunidad", v1Comunidad);
 app.use("/api/v1/starwars", v1Starwars);
 app.use("/api/v1/dragonball", v1Dragonball);
