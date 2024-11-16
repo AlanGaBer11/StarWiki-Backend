@@ -5,18 +5,18 @@ const cors = require('cors');
 const mysql = require('mysql2/promise');
 
 const app = express();
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 3000;
 
 // Configuración de la base de datos con un pool de conexiones
 const pool = mysql.createPool({
     host: process.env.HOST_DB,
     port: process.env.PORT_DB,
     user: process.env.USER_DB,
-    password: process.env.PASSWORD_DB ,
+    password: process.env.PASSWORD_DB,
     database: process.env.NAME_DB,
-/*     waitForConnections: true,
+    waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0 */
+    queueLimit: 0
 });
 
 // Importar rutas
@@ -57,7 +57,7 @@ app.use("/api/v1/onepiece", v1Onepiece);
 
 // Manejo de rutas no encontradas
 app.use((req, res, next) => {
-    res.status(404).send('Ruta no encontrada pipipi');
+    res.status(404).send('Ruta no encontrada');
 });
 
 // Iniciar el servidor
